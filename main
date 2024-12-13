@@ -1,0 +1,13 @@
+local LuauInLuau = require("path")
+local Fiu = require("path")
+
+function loadstring(source)
+	local succes, bytecode = LuauInLuau.Compile(source)
+	if succes then
+		local sets = Fiu.luau_deserialize(bytecode)
+		local func = Fiu.luau_load(sets, getfenv())
+		return func
+	else
+		return nil, "Compile Failed!"
+	end
+end
